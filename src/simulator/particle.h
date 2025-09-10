@@ -22,4 +22,4 @@ class Particle {
         void setLinkedParticle(Particle* p);
 };
 
-#endif //PARTICLE_H
+#endif // PARTICLE_H

@@ -20,7 +20,6 @@ FluidSim::FluidSim(sim_params* sim_params) {
     this->flip_ratio = sim_params->flipRatio;
     compensateDrift = true;
 
-
     for (int j = 0; j < GRID_Y; j++) {
         for (int i = 0; i < GRID_X; i++) {
             CELL_TYPE s_val = AIR_CELL;
@@ -48,13 +47,40 @@ FluidSim::FluidSim(sim_params* sim_params) {
     }
 }
 
-void FluidSim::update() {
+void FluidSim::update(sf::Clock clock) {
+
+    int integrateTime = 0.f;
+    int collisionTime = 0.f;
+    int incompressibleTime = 0.f;
+    int toGridTime = 0.f;
+    int toParticleTime = 0.f;
+
     integrateParticles();
+    integrateTime = clock.getElapsedTime().asMicroseconds();
+    clock.restart();
+
     handleParticleCollisions();
+    collisionTime = clock.getElapsedTime().asMicroseconds();
+    clock.restart();
+
     transfertVelocities(true);
+    toGridTime = clock.getElapsedTime().asMicroseconds();
+    clock.restart();
+
     computeDensity();
     solveIncompressibility();
+    incompressibleTime = clock.getElapsedTime().asMicroseconds();
+    clock.restart();
+
     transfertVelocities(false);
+    toParticleTime = clock.getElapsedTime().asMicroseconds();
+    clock.restart();
+
+    printf("IntegrateTime: %i us\n", integrateTime);
+    printf("CollisionTime: %i us\n", collisionTime);
+    printf("IncompressibleTime: %i us\n", incompressibleTime);
+    printf("ToGridTime: %i us\n", toGridTime);
+    printf("ToParticleTime: %i us\n\n\n", toParticleTime);
 }
 
 void FluidSim::integrateParticles() {
@@ -156,17 +182,11 @@ void FluidSim::transfertVelocities(bool particlesToGrid) {
 
                 if (weight_sum > 0.0f) {
                     // From grid -> particles
-                    float PIC = ((w1 * q[index1])
-                            + (w2 * q[index2])
-                            + (w3 * q[index3])
-                            + (w4 * q[index4]))
-                        / weight_sum;
+                    float PIC = ((w1 * q[index1]) + (w2 * q[index2]) + (w3 * q[index3]) + (w4 * q[index4])) / weight_sum;
 
-                    float changes = ((w1 * (q[index1] - prevQ[index1]))
-                            + (w2 * (q[index2] - prevQ[index2]))
-                            + (w3 * (q[index3] - prevQ[index3]))
-                            + (w4 * (q[index4] - prevQ[index4])))
-                        / weight_sum;
+                    float changes = ((w1 * (q[index1] - prevQ[index1])) + (w2 * (q[index2] - prevQ[index2])) +
+                                     (w3 * (q[index3] - prevQ[index3])) + (w4 * (q[index4] - prevQ[index4]))) /
+                        weight_sum;
 
                     float FLIP = qp + changes;
 
@@ -268,7 +288,6 @@ void FluidSim::computeDensity() {
             pRestDensity = density_sum / fluidCells;
     }
 }
-
 
 void FluidSim::handleWallCollisions(float minX, float minY, float maxX, float maxY) {
     float restitution = 0.9f;
@@ -375,7 +394,7 @@ void FluidSim::handleParticleCollisions() {
                                 qp->y += dy;
                             }
                         }
-                        qp = qp->linkedP; //Iterate through the linked list
+                        qp = qp->linkedP; // Iterate through the linked list
                     }
                 }
             }
@@ -389,6 +408,4 @@ void FluidSim::handleParticleCollisions() {
     }
 }
 
-int FluidSim::getS(int index) {
-    return s[index] == WALL_CELL ? 0 : 1;
-}
+int FluidSim::getS(int index) { return s[index] == WALL_CELL ? 0 : 1; }
