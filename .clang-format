@@ -1,0 +1,11 @@
+BasedOnStyle: LLVM
+ColumnLimit: 130
+IndentWidth: 4
+TabWidth: 4
+IndentAccessModifiers: false
+IndentCaseLabels: true
+PointerAlignment: Left
+AllowShortCaseLabelsOnASingleLine: true
+AllowShortEnumsOnASingleLine: false
+AlignOperands: false
+BreakBeforeBinaryOperators: true
