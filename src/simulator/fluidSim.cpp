@@ -3,7 +3,7 @@
 // Copyright (c) 2025 - All rights reserved.
 //
 
-#include "FluidSim.h"
+#include "fluidSim.h"
 
 #include <algorithm>
 #include <cmath>

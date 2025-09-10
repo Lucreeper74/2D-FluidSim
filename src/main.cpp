@@ -11,8 +11,6 @@
 #include <SFML/Graphics.hpp>
 #include <cstdio>
 
-#include "../cmake-build-debug/_deps/sfml-src/src/SFML/Window/InputImpl.hpp"
-
 /**
  *  From https://matthias-research.github.io/pages/tenMinutePhysics/index.html works
  */
@@ -22,7 +20,7 @@ int main() {
 
     sim_params sim1_params = {
         .gravity = 9.81, // in m/s²
-        .deltaTime = 1.f / 10.f, // in s (but depend on the frame rate simulation)
+        .deltaTime = 1.f / 20.f, // in s (but depend on the frame rate simulation)
         .numIter = 50, // Number of iterations for Gauss-Seidel Method
         .overRelaxation = 1.9f, // Factor used to accelerate convergence of Gauss-Seidel method
         .h = RES_Y / (float)GRID_Y,
@@ -90,14 +88,14 @@ int main() {
         printf("RenderingTime: %i us\n\n\n", renderingTime);
 
 
-        bool key_pressed2 = priv::InputImpl::isKeyPressed(Keyboard::Key::C);
+        bool key_pressed2 = sf::Keyboard::isKeyPressed(Keyboard::Key::C);
         fluid_sim1.compensateDrift = !key_pressed2;
 
-        if (priv::InputImpl::isKeyPressed(Keyboard::Key::P))
+        if (sf::Keyboard::isKeyPressed(Keyboard::Key::P))
             drawParticles(&window, &fluid_sim1, render_params);
         drawGrid(&window, &fluid_sim1, render_params);
 
-        if (priv::InputImpl::isKeyPressed(Keyboard::Key::F))
+        if (sf::Keyboard::isKeyPressed(Keyboard::Key::F))
             drawFPS(&window, &fps);
 
         window.display(); // End the current frame

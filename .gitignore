@@ -1,5 +1,6 @@
-# Clion
+# IDE
 .idea
+.vscode
 
 # Cmake
 cmake_build_debug

@@ -12,7 +12,6 @@ FetchContent_Declare(SFML
 FetchContent_MakeAvailable(SFML)
 
 add_executable(${NAME}
-        src/main.cpp
         src/simulator/fluidSim.cpp
         src/simulator/fluidSim.h
         src/rendering/fps_counter.cpp
