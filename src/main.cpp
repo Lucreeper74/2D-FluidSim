@@ -19,7 +19,7 @@ int main() {
 
     sim_params sim1_params = {
         .gravity = 9.81,         // in m/s²
-        .deltaTime = 1.f / 20.f, // in s (but depend on the frame rate simulation)
+        .deltaTime = 1.f / 10.f, // in s (but depend on the frame rate simulation)
         .numIter = 50,           // Number of iterations for Gauss-Seidel Method
         .overRelaxation = 1.9f,  // Factor used to accelerate convergence of Gauss-Seidel method
         .h = RES_Y / (float)GRID_Y,
@@ -35,6 +35,7 @@ int main() {
     FluidSim fluid_sim1(&sim1_params);
 
     RenderWindow window(VideoMode({RES_X, RES_Y}), "Fluid Sim - 1st Attempt");
+    window.setFramerateLimit(60);
     FPS fps;
     Clock clock;
 
