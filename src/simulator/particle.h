@@ -1,6 +1,6 @@
 //
 // Created by Luc_Creeper74 on 27/08/2025.
-// Copyright (c) 2025 - All rights reserved.
+// Copyright (c) 2025 - MIT.
 //
 
 #ifndef PARTICLE_H
