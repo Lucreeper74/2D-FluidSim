@@ -1,6 +1,6 @@
 //
 // Created by Luc_Creeper74 on 20/08/2025.
-// Copyright (c) 2025 - All rights reserved.
+// Copyright (c) 2025 - MIT.
 //
 
 #include <SFML/Graphics.hpp>
@@ -47,12 +47,12 @@ int main() {
 
         window.clear(Color::Black);
 
-        int renderingTime = 0.f;
-        renderingTime = clock.getElapsedTime().asMicroseconds();
-        clock.restart();
-        printf("RenderingTime: %i us\n\n\n", renderingTime);
-
         fluid_sim1.update(clock);
+
+        int renderingTime = clock.getElapsedTime().asMicroseconds();
+        clock.restart();
+
+        printf("RenderingTime: %i us\n\n\n", renderingTime);
 
         bool key_pressed2 = sf::Keyboard::isKeyPressed(Keyboard::Key::C);
         fluid_sim1.compensateDrift = !key_pressed2;

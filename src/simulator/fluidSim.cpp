@@ -1,6 +1,6 @@
 //
 // Created by Luc_Creeper74 on 20/08/2025.
-// Copyright (c) 2025 - All rights reserved.
+// Copyright (c) 2025 - MIT.
 //
 
 #include "fluidSim.h"
@@ -48,32 +48,27 @@ FluidSim::FluidSim(sim_params* sim_params) {
 }
 
 void FluidSim::update(sf::Clock clock) {
-
-    int integrateTime = 0.f;
-    int collisionTime = 0.f;
-    int incompressibleTime = 0.f;
-    int toGridTime = 0.f;
-    int toParticleTime = 0.f;
+    clock.restart();
 
     integrateParticles();
-    integrateTime = clock.getElapsedTime().asMicroseconds();
+    int integrateTime = clock.getElapsedTime().asMicroseconds();
     clock.restart();
 
     handleParticleCollisions();
-    collisionTime = clock.getElapsedTime().asMicroseconds();
+    int collisionTime = clock.getElapsedTime().asMicroseconds();
     clock.restart();
 
     transfertVelocities(true);
-    toGridTime = clock.getElapsedTime().asMicroseconds();
+    int toGridTime = clock.getElapsedTime().asMicroseconds();
     clock.restart();
 
     computeDensity();
     solveIncompressibility();
-    incompressibleTime = clock.getElapsedTime().asMicroseconds();
+    int incompressibleTime = clock.getElapsedTime().asMicroseconds();
     clock.restart();
 
     transfertVelocities(false);
-    toParticleTime = clock.getElapsedTime().asMicroseconds();
+    int toParticleTime = clock.getElapsedTime().asMicroseconds();
     clock.restart();
 
     printf("IntegrateTime: %i us\n", integrateTime);
@@ -184,9 +179,9 @@ void FluidSim::transfertVelocities(bool particlesToGrid) {
                     // From grid -> particles
                     float PIC = ((w1 * q[index1]) + (w2 * q[index2]) + (w3 * q[index3]) + (w4 * q[index4])) / weight_sum;
 
-                    float changes = ((w1 * (q[index1] - prevQ[index1])) + (w2 * (q[index2] - prevQ[index2])) +
-                                     (w3 * (q[index3] - prevQ[index3])) + (w4 * (q[index4] - prevQ[index4]))) /
-                        weight_sum;
+                    float changes = ((w1 * (q[index1] - prevQ[index1])) + (w2 * (q[index2] - prevQ[index2]))
+                                     + (w3 * (q[index3] - prevQ[index3])) + (w4 * (q[index4] - prevQ[index4])))
+                        / weight_sum;
 
                     float FLIP = qp + changes;
 
