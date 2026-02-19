@@ -7,5 +7,14 @@ This project consists of a 2D fluid simulation developed in C++ based on the FLI
 
 Copyright (c) 2025 Luc_Creeper74 - 2D-FluidSim is under the Apache 2.0 License.
 
-## Preview Animation
-![Demo Gif](./fluid-sim-demo.gif)
+## Previews
+*Purple pixels is walls, black lines represent streamlines, RED = high pressure, Blue = low pressure.*
+
+### Fluid Simulation - Semi-Lagrangian Flip/Pic
+![Demo Gif - Fluid Sim](./fluid-sim-demo.gif)
+
+### Smoke Chamber - Eularian method
+![Demo Gif - Smoke Chamber](./smoke-chamber-demo.gif)
+
+### Smoke Chamber - Pressure Gradient
+<img src="./pressure-gradient-demo.png" width="428">
