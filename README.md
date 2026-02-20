@@ -8,7 +8,7 @@ This project consists of a 2D fluid simulation developed in C++ based on the FLI
 Copyright (c) 2025 Luc_Creeper74 - 2D-FluidSim is under the Apache 2.0 License.
 
 ## Previews
-*Purple pixels is walls, black lines represent streamlines, RED = high pressure, Blue = low pressure.*
+*Purple pixels is walls, black lines represent streamlines, RED = high pressure, BLUE = low pressure.*
 
 ### Fluid Simulation - Semi-Lagrangian Flip/Pic
 ![Demo Gif - Fluid Sim](./fluid-sim-demo.gif)
