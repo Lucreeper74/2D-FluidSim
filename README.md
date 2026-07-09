@@ -5,6 +5,8 @@
 
 This project consists of a 2D fluid simulation developed in C++ based on the FLIP/PIC simulation method. It uses SFML for the rendering.
 
+Special Thanks to [TenMinutePhysics](https://www.youtube.com/@TenMinutePhysics/videos) for his great physics simulation videos.
+
 Copyright (c) 2025 Luc_Creeper74 - 2D-FluidSim is under the Apache 2.0 License.
 
 ## Previews
